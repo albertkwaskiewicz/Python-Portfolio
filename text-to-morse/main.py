@@ -57,9 +57,10 @@ def convert_user_input(user_input):
     morse = ''
     for char in user_input:
         if char == ' ':
-            morse += char
+            morse = re.sub(r'_$', ' ', morse)
         else:
-            morse += alpha_morse_dict[char]
+            morse += f'{alpha_morse_dict[char]}_'
+    morse = re.sub(r'_$', '', morse)
     return morse
 
 
