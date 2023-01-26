@@ -2,12 +2,6 @@ import pytest
 import main
 
 
-@pytest.fixture()
-def input_from_prompt(monkeypatch):
-    monkeypatch.setattr('main.prompt_user', lambda: 'Hi')
-    return main.prompt_user()
-
-
 def test_prompt_user(monkeypatch):
     monkeypatch.setattr('main.prompt_user', lambda: 'Hi')
     user_input = main.prompt_user()
