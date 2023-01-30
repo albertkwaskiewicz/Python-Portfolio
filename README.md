@@ -4,3 +4,4 @@ This is my portfolio containing all Python portfolio projects assigned in Angela
 
 ## List of Projects
 - Text to Morse Code Converter
+- Tic Tac Toe
