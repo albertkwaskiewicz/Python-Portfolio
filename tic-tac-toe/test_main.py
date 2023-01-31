@@ -26,8 +26,9 @@ def test_assign_sign(monkeypatch):
     monkeypatch.setattr('builtins.input', lambda _: '3')
     board = create_game_board()
     container = create_sign_container()
-    assign_sign('X', container, board)
-    assert board == '   |   | X \n---------\n   |   |   \n---------\n   |   |   \n'
+    board = assign_sign('X', container)
+    assert board == '  |  | X \n---------\n  |  |  \n---------\n  |  |  \n'
+    assert container == ['', '', 'X', '', '', '', '', '', '']
 
 
 def test_update_board():
