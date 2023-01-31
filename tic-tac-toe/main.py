@@ -2,13 +2,15 @@ def play_game():
     is_playing = True
     board = create_game_board()
     is_player_1_turn = True
-    signs = create_sign_container()
+    signs_container = create_sign_container()
+    print(board)
 
     while is_playing:
         print(f'Current player: {"Player 1 - X" if is_player_1_turn else "Player 2 - O"}')
-        print(board)
         sign = "X" if is_player_1_turn else "O"
-        # location = get_sign_location_from_user()
+
+        board = assign_sign(sign, signs_container)
+        print(board)
 
         is_player_1_turn = not is_player_1_turn
 
@@ -28,14 +30,16 @@ def create_sign_container():
     return [''] * 9
 
 
-def assign_sign(sign, container: list, board):
+def assign_sign(sign, container: list):
     location = get_sign_location_from_user()
-    if container[location - 1] == '':
-        container[location - 1] = sign
-        container.insert()
+    index = location - 1
+    if container[index] == '':
+        del container[index]
+        container.insert(index, sign)
+        return update_board(container)
     else:
         print("That spot is already taken: Try again.")
-        assign_sign(sign, container, board)
+        assign_sign(sign, container)
 
 
 def get_sign_location_from_user():
@@ -48,6 +52,7 @@ def get_sign_location_from_user():
         get_sign_location_from_user()
 
 
+# TODO: Improve func so lines are always aligned
 def update_board(container):
     new_board = ''
     split = '---------'
