@@ -8,13 +8,7 @@ def empty_board():
 
 
 def test_create_game_board(empty_board):
-    assert empty_board == '''
-       |   |   
-    -----------
-       |   |   
-    -----------
-       |   |   
-    '''
+    assert empty_board == '  |  |  \n---------\n  |  |  \n---------\n  |  |  \n'
 
 
 def test_create_sign_container():
@@ -33,17 +27,15 @@ def test_assign_sign(monkeypatch):
     board = create_game_board()
     container = create_sign_container()
     assign_sign('X', container, board)
-    assert board == '''
-       |   | X 
-    -----------
-       |   |   
-    -----------
-       |   |   
-    '''
+    assert board == '   |   | X \n---------\n   |   |   \n---------\n   |   |   \n'
 
 
 def test_update_board():
-    pass
+    container = ['', '', 'X', '', '', '', '', '', '']
+    board = update_board(container)
+    print(board)
+    print('  |  | X \n---------\n  |  |  \n---------\n  |  |  \n')
+    assert board == '  |  | X \n---------\n  |  |  \n---------\n  |  |  \n'
 
 
 def test_is_game_over():
