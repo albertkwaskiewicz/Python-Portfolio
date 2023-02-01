@@ -1,3 +1,5 @@
+import math
+
 def play_game():
     is_playing = True
     board = create_game_board()
@@ -6,39 +8,44 @@ def play_game():
     print(board)
 
     while is_playing:
-        print(f'Current player: {"Player 1 - X" if is_player_1_turn else "Player 2 - O"}')
+        print(f'Current player: {"Player X" if is_player_1_turn else "Player O"}')
         sign = "X" if is_player_1_turn else "O"
 
         board = assign_sign(sign, signs_container)
         print(board)
+
+        is_game_over(signs_container)
 
         is_player_1_turn = not is_player_1_turn
 
 
 def create_game_board():
     new_board = ''
-    split = '---------'
+    split = '-----------'
     for num in range(1, 10):
         if num % 3 == 0:
-            new_board += f'  |  |  \n'
+            new_board += f'   |   |   \n'
             if num != 9:
                 new_board += f'{split}\n'
     return new_board
 
 
 def create_sign_container():
-    return [''] * 9
+    num_rows = 3
+    return [[' ', ' ', ' '] for _ in range(num_rows)]
 
 
 def assign_sign(sign, container: list):
     location = get_sign_location_from_user()
-    index = location - 1
-    if container[index] == '':
-        del container[index]
-        container.insert(index, sign)
+    row_size = 3
+    row = math.ceil(location / row_size) - 1
+    index = 2 if location % row_size == 0 else (location % row_size - 1)
+
+    if container[row][index] == ' ':
+        container[row][index] = sign
         return update_board(container)
     else:
-        print("That spot is already taken: Try again.")
+        print("\nThat spot is already taken: Try again.")
         assign_sign(sign, container)
 
 
@@ -52,21 +59,22 @@ def get_sign_location_from_user():
         get_sign_location_from_user()
 
 
-# TODO: Improve func so lines are always aligned
 def update_board(container):
     new_board = ''
-    split = '---------'
+    split = '-----------'
 
-    for index, _ in enumerate(container):
-        if (index + 1) % 3 == 0:
-            new_board += f' {container[index - 2]} | {container[index - 1]} | {container[index]} \n'
-            if (index + 1) != len(container):
-                new_board += f'{split}\n'
+    for index, row in enumerate(container):
+        new_board += f' {row[0]} | {row[1]} | {row[2]} \n'
+        if (index + 1) != len(container):
+            new_board += f'{split}\n'
     return new_board
 
 
-def is_game_over():
-    pass
+def is_game_over(sign, collection):
+    for row in collection:
+        pass
+    if '' not in collection:
+        return True
 
 
 def reset_game():
