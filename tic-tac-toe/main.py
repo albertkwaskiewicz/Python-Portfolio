@@ -1,5 +1,6 @@
 import math
 
+
 def play_game():
     is_playing = True
     board = create_game_board()
@@ -70,10 +71,56 @@ def update_board(container):
     return new_board
 
 
-def is_game_over(sign, collection):
-    for row in collection:
-        pass
-    if '' not in collection:
+def is_game_over(sign, container):
+    return did_player_win(sign, container) or is_container_full(container)
+
+
+def did_player_win(sign, container):
+    return is_row_match(sign, container) or is_column_match(sign, container) or is_diagonal_match(sign, container)
+
+
+def is_row_match(sign, container):
+    for row in container:
+        if all(item == sign for item in row):
+            return True
+
+
+def is_column_match(sign, container):
+    row_size = 3
+    column_values = []
+    for index in range(row_size):
+        for row in container:
+            column_values.append(row[index])
+        if all(item == sign for item in column_values):
+            return True
+        column_values = []
+    return False
+
+
+def is_diagonal_match(sign, container):
+    diagonal_values = get_diagonals(container)
+    if all(item == sign for item in diagonal_values):
+        return True
+
+    diagonal_values = get_diagonals(reversed(container))
+    if all(item == sign for item in diagonal_values):
+        return True
+
+    return False
+
+
+def get_diagonals(container):
+    diagonal_values = []
+    i = 0
+    for row in container:
+        diagonal_values.append(row[i])
+        i += 1
+    return diagonal_values
+
+
+def is_container_full(container):
+    flat_container = [sign for row in container for sign in row]
+    if ' ' not in flat_container:
         return True
 
 
