@@ -15,7 +15,14 @@ def play_game():
         board = assign_sign(sign, signs_container)
         print(board)
 
-        is_game_over(signs_container)
+        if is_game_over(sign, signs_container):
+            print('Game Over!')
+            keep_playing = input('Would you like to play again? Y/N\n').lower()
+            if keep_playing != 'y':
+                print('Thanks for playing! Until next time!')
+                is_playing = not is_playing
+            else:
+                play_game()
 
         is_player_1_turn = not is_player_1_turn
 
