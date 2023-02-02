@@ -6,9 +6,12 @@ from main import *
 def empty_board():
     return '   |   |   \n-----------\n   |   |   \n-----------\n   |   |   \n'
 
+
 @pytest.fixture()
 def x_in_3_board():
     return '   |   | X \n-----------\n   |   |   \n-----------\n   |   |   \n'
+
+
 @pytest.fixture()
 def empty_container():
     return [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
@@ -51,18 +54,19 @@ def test_update_board(one_sign_container, x_in_3_board):
     board = update_board(one_sign_container)
     assert board == x_in_3_board
 
+
 @pytest.mark.parametrize('game_over', [
-    ['X', 'X', 'X', '', '', '', '', '', ''],
-    ['', '', '', 'X', 'X', 'X', '', '', ''],
-    ['', '', '', '', '', '', 'X', 'X', 'X'],
-    ['X', '', '', 'X', '', '', 'X', '', ''],
-    ['', 'X', '', '', 'X', '', '', 'X', ''],
-    ['', '', 'X', '', '', 'X', '', '', 'X'],
-    ['', '', 'X', '', 'X', '', 'X', '', ''],
-    ['X', '', '', '', 'X', '', '', '', 'X'],
-    ['X', 'O', 'X', 'O', 'O', 'X', 'X', 'X', 'O']
+    [['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' ']],
+    [[' ', ' ', ' '], ['X', 'X', 'X'], [' ', ' ', ' ']],
+    [[' ', ' ', ' '], [' ', ' ', ' '], ['X', 'X', 'X']],
+    [['X', ' ', ' '], ['X', ' ', ' '], ['X', ' ', ' ']],
+    [[' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' ']],
+    [[' ', ' ', 'X'], [' ', ' ', 'X'], [' ', ' ', 'X']],
+    [[' ', ' ', 'X'], [' ', 'X', ' '], ['X', ' ', ' ']],
+    [['X', ' ', ' '], [' ', 'X', ' '], [' ', ' ', 'X']],
+    [['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 'X', 'O']]
 ])
-@pytest.mark.skip()
 def test_is_game_over(game_over):
-    # assert is_game_over(game_over)
-    pass
+    print(game_over)
+    assert is_game_over('X', game_over)
+    # pass
