@@ -64,7 +64,7 @@ def get_sign_location_from_user():
         return location
     else:
         print('Not a correct value. Try again.')
-        get_sign_location_from_user()
+        return get_sign_location_from_user()
 
 
 def update_board(container):
@@ -83,7 +83,9 @@ def is_game_over(sign, container):
 
 
 def did_player_win(sign, container):
-    return is_row_match(sign, container) or is_column_match(sign, container) or is_diagonal_match(sign, container)
+    if is_row_match(sign, container) or is_column_match(sign, container) or is_diagonal_match(sign, container):
+        print(f'Player {sign} wins! Congrats!')
+        return True
 
 
 def is_row_match(sign, container):
@@ -129,10 +131,6 @@ def is_container_full(container):
     flat_container = [sign for row in container for sign in row]
     if ' ' not in flat_container:
         return True
-
-
-def reset_game():
-    pass
 
 
 if __name__ == '__main__':
